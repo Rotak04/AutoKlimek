@@ -108,7 +108,7 @@ export default function Home() {
       desc: "Kompletní diagnostika vozidel všech značek.",
       moreInfo: "Používáme profesionální diagnostické přístroje pro čtení i mazání chybových kódů, živá data z řídicích jednotek, kódování modulů a kontrolu snímačů motoru i podvozku.",
       icon: <Gauge className="w-6 h-6 text-blue-600" />,
-      image: "/diagnostika"
+      image: "/diagnostika.png"
       },
     {
       id: "olej",
