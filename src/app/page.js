@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import {
@@ -101,56 +102,56 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const services = [
-    {
-      id: "diagnostika",
-      title: "DIAGNOSTIKA",
-      desc: "Kompletní diagnostika vozidel všech značek.",
-      moreInfo: "Používáme profesionální diagnostické přístroje pro čtení i mazání chybových kódů, živá data z řídicích jednotek, kódování modulů a kontrolu snímačů motoru i podvozku.",
-      icon: <Gauge className="w-6 h-6 text-blue-600" />,
-      image: "/diagnostika.png"
-      },
-    {
-      id: "olej",
-      title: "VÝMĚNA OLEJE",
-      desc: "Výměna motorového oleje a všech filtrů.",
-      icon: <Droplet className="w-6 h-6 text-blue-600" />,
-      moreInfo: "Používáme kvalitní doporučené oleje dle specifikací výrobce vašeho vozu. Provádíme výměnu motorového i převodového oleje včetně výměny olejového, vzduchového, kabinového a palivového filtru.",
-      image: "/olej.png"
-      },
-    {
-      id: "brzdy",
-      title: "BRZDY",
-      desc: "Kontrola, oprava a výměna brzdových systémů.",
-      icon: <Disc className="w-6 h-6 text-blue-600" />,
-      moreInfo: "Kompletní servis brzdového systému: výměna brzdových destiček, kotoučů, brzdové kapaliny, kontrola a oprava brzdových třmenů, vedení a testování účinnosti.",
-      image: "/brzdy.png"
-      },
-    {
-      id: "pneuservis",
-      title: "PNEUSERVIS",
-      desc: "Přezutí, vyvážení a opravy pneumatik.",
-      icon: <Disc3 className="w-6 h-6 text-blue-600" />,
-      moreInfo: "Kompletní sezónní přezutí pneumatik, přesné vyvážení kol, oprava defektů, kontrola tlaku a stavu vzorku, ekologická likvidace starých pneumatik.",
-      image: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?q=80&w=600&auto=format&fit=crop"
-    },
-    {
-      id: "mechanicke",
-      title: "MECHANICKÉ PRÁCE",
-      desc: "Opravy motoru, převodovky a dalších komponentů.",
-      icon: <Settings className="w-6 h-6 text-blue-600" />,
-      moreInfo: "Opravy podvozků, výměny tlumičů, čepů, ramen, výfukových systémů, rozvodů, spojek, vodních čerpadel a rozsáhlé opravy motorových částí.",
-      image: "/mechanika.png"
-    },
-    {
-      id: "STK",
-      title: "STK a EMISE",
-      desc: "Zařízení STK a EMISÍ.",
-      icon: <Disc3 className="w-6 h-6 text-blue-600" />,
-      moreInfo: "Zprostředkování a příprava vozidla na STK a měření emisí, kontrola technického stavu před samotnou prohlídkou.",
-      image: "/stk.png"
-      },
-  ];
+ const services = [
+     {
+       slug: "diagnostika",
+       title: "DIAGNOSTIKA",
+       desc: "Kompletní diagnostika vozidel všech značek.",
+       moreInfo: "Používáme profesionální diagnostické přístroje pro čtení i mazání chybových kódů, živá data z řídicích jednotek, kódování modulů a kontrolu snímačů motoru i podvozku.",
+       icon: <Gauge className="w-6 h-6 text-blue-600" />,
+       image: "/diagnostika.png"
+     },
+     {
+       slug: "olej",
+       title: "VÝMĚNA OLEJE",
+       desc: "Výměna motorového oleje a všech filtrů.",
+       icon: <Droplet className="w-6 h-6 text-blue-600" />,
+       moreInfo: "Používáme kvalitní doporučené oleje dle specifikací výrobce vašeho vozu. Provádíme výměnu motorového i převodového oleje včetně výměny olejového, vzduchového, kabinového a palivového filtru.",
+       image: "/olej.png"
+     },
+     {
+       slug: "brzdy",
+       title: "BRZDY",
+       desc: "Kontrola, oprava a výměna brzdových systémů.",
+       icon: <Disc className="w-6 h-6 text-blue-600" />,
+       moreInfo: "Kompletní servis brzdového systému: výměna brzdových destiček, kotoučů, brzdové kapaliny, kontrola a oprava brzdových třmenů, vedení a testování účinnosti.",
+       image: "/brzdy.png"
+     },
+     {
+       slug: "pneuservis",
+       title: "PNEUSERVIS",
+       desc: "Přezutí, vyvážení a opravy pneumatik.",
+       icon: <Disc3 className="w-6 h-6 text-blue-600" />,
+       moreInfo: "Kompletní sezónní přezutí pneumatik, přesné vyvážení kol, oprava defektů, kontrola tlaku a stavu vzorku, ekologická likvidace starých pneumatik.",
+       image: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?q=80&w=600&auto=format&fit=crop"
+     },
+     {
+       slug: "mechanicke",
+       title: "MECHANICKÉ PRÁCE",
+       desc: "Opravy motoru, převodovky a dalších komponentů.",
+       icon: <Settings className="w-6 h-6 text-blue-600" />,
+       moreInfo: "Opravy podvozků, výměny tlumičů, čepů, ramen, výfukových systémů, rozvodů, spojek, vodních čerpadel a rozsáhlé opravy motorových částí.",
+       image: "/mechanika.png"
+     },
+     {
+       slug: "stk",
+       title: "STK A EMISE",
+       desc: "Zařízení STK a EMISÍ.",
+       icon: <Disc3 className="w-6 h-6 text-blue-600" />,
+       moreInfo: "Zprostředkování a příprava vozidla na STK a měření emisí, kontrola technického stavu před samotnou prohlídkou.",
+       image: "/stk.png"
+     },
+   ];
 
   const pricing = [
     { service: "Počítačová diagnostika motoru a elektroniky", price: "od 500 Kč" },
@@ -211,7 +212,7 @@ export default function Home() {
           <div className="md:hidden bg-[#0e1726] border-t border-slate-800 px-6 py-6 space-y-4">
             <a href="#domu" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-white hover:text-blue-400 border-b border-slate-800/60 pb-3">DOMŮ</a>
             <a href="#sluzby" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-gray-200 hover:text-blue-400 border-b border-slate-800/60 pb-3">SLUŽBY</a>
-            <a href="#o-nas" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-gray-200 hover:text-blue-400 border-b border-slate-800/60 pb-3">O NÁS</a>
+            <Link href="/o-nas" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-gray-200 hover:text-blue-400 border-b border-slate-800/60 pb-3">O NÁS</Link>
             <a href="#cenik" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-gray-200 hover:text-blue-400 border-b border-slate-800/60 pb-3">CENÍK</a>
             <a href="#kontakt" onClick={() => setIsMenuOpen(false)} className="block text-base font-semibold text-gray-200 hover:text-blue-400 border-b border-slate-800/60 pb-3">KONTAKT</a>
             <a href="tel:+420736153774" className="w-full text-center bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-md font-bold text-sm uppercase tracking-wider transition flex items-center justify-center space-x-2 mt-2">
@@ -234,7 +235,7 @@ export default function Home() {
           <nav className="flex-1 flex justify-around max-w-xl mx-8 text-sm font-semibold tracking-wide">
             <a href="#domu" className="text-gray-300 hover:text-white hover:border-b-2 hover:border-blue-500 pb-1 transition-all">DOMŮ</a>
             <a href="#sluzby" className="text-gray-300 hover:text-white hover:border-b-2 hover:border-blue-500 pb-1 transition-all">SLUŽBY</a>
-            <a href="#o-nas" className="text-gray-300 hover:text-white hover:border-b-2 hover:border-blue-500 pb-1 transition-all">O NÁS</a>
+            <Link href="/o-nas" className="text-gray-300 hover:text-white transition-all">O NÁS</Link>
             <a href="#cenik" className="text-gray-300 hover:text-white hover:border-b-2 hover:border-blue-500 pb-1 transition-all">CENÍK</a>
             <a href="#kontakt" className="text-gray-300 hover:text-white hover:border-b-2 hover:border-blue-500 pb-1 transition-all">KONTAKT</a>
           </nav>
@@ -251,7 +252,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="domu" className="relative bg-[#0b1321] text-white py-24 md:py-32 overflow-hidden">
-        {/* Tady nahraď starou URL cestou k tvému lokálnímu obrázku */}
+
         <div
           className="absolute inset-0 z-0 opacity-40 bg-cover bg-center"
           style={{ backgroundImage: "url('/autoplocha1.png')" }}
@@ -329,9 +330,8 @@ export default function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 items-start">
             {services.map((service) => {
-              const isExpanded = !!expandedServices[service.id];
               return (
-                <div key={service.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200">
+                <div key={service.slug} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200 flex flex-col h-full">
                   <div className="h-48 overflow-hidden relative">
                     <img
                       src={service.image}
@@ -342,28 +342,19 @@ export default function Home() {
                       {service.icon}
                     </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col flex-grow">
                     <h3 className="font-bold text-lg text-slate-900 mb-2 uppercase">{service.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{service.desc}</p>
+                    <p className="text-gray-600 text-sm mb-6 flex-grow">{service.desc}</p>
 
-                    {isExpanded && (
-                      <div className="mb-4 p-3 bg-blue-50 border border-blue-100 rounded-md text-xs text-slate-700 leading-relaxed animate-fadeIn">
-                        <div className="font-semibold text-blue-900 mb-1 flex items-center gap-1">
-                          <Info className="w-3.5 h-3.5 text-blue-600" />
-                          <span>Podrobnější informace:</span>
-                        </div>
-                        {service.moreInfo}
-                      </div>
-                    )}
-
-                    <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
-                      <button
-                        onClick={() => toggleMoreInfo(service.id)}
-                        className="inline-flex items-center text-xs font-semibold text-gray-500 hover:text-slate-800 uppercase tracking-wider space-x-1 cursor-pointer transition"
+                    <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
+                      {/* Tlačítko VÍCE INFO nyní odkazuje na dynamickou podstránku */}
+                      <Link
+                        href={`/sluzby/${service.slug}`}
+                        className="inline-flex items-center text-xs font-semibold text-gray-500 hover:text-slate-800 uppercase tracking-wider space-x-1 transition"
                       >
-                        <span>{isExpanded ? 'MÉNĚ INFO' : 'VÍCE INFO'}</span>
-                        {isExpanded ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
-                      </button>
+                        <span>VÍCE INFO</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </Link>
 
                       <button
                         onClick={() => handleOpenModal(service.title)}
