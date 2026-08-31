@@ -457,7 +457,7 @@ export default function Home() {
               <ul className="space-y-2 text-xs text-gray-600">
                 <li className="flex items-center space-x-2">
                   <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>Na Zadkách 129, 739 32 Vratimov 1, Česko</span>
+                  <span>Na Zadkách 128/19, 739 32 Vratimov 1, Česko</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <Phone className="w-4 h-4 text-blue-600 shrink-0" />
