@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import {
   Wrench,
@@ -107,24 +108,24 @@ export default function Home() {
       desc: "Kompletní diagnostika vozidel všech značek.",
       moreInfo: "Používáme profesionální diagnostické přístroje pro čtení i mazání chybových kódů, živá data z řídicích jednotek, kódování modulů a kontrolu snímačů motoru i podvozku.",
       icon: <Gauge className="w-6 h-6 text-blue-600" />,
-      image: "https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=600&auto=format&fit=crop"
-    },
+      image: "/diagnostika"
+      },
     {
       id: "olej",
       title: "VÝMĚNA OLEJE",
       desc: "Výměna motorového oleje a všech filtrů.",
       icon: <Droplet className="w-6 h-6 text-blue-600" />,
       moreInfo: "Používáme kvalitní doporučené oleje dle specifikací výrobce vašeho vozu. Provádíme výměnu motorového i převodového oleje včetně výměny olejového, vzduchového, kabinového a palivového filtru.",
-      image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?q=80&w=600&auto=format&fit=crop"
-    },
+      image: "/olej.png"
+      },
     {
       id: "brzdy",
       title: "BRZDY",
       desc: "Kontrola, oprava a výměna brzdových systémů.",
       icon: <Disc className="w-6 h-6 text-blue-600" />,
       moreInfo: "Kompletní servis brzdového systému: výměna brzdových destiček, kotoučů, brzdové kapaliny, kontrola a oprava brzdových třmenů, vedení a testování účinnosti.",
-      image: "https://images.unsplash.com/photo-1600792535783-8d69287a9003?q=80&w=600&auto=format&fit=crop"
-    },
+      image: "/brzdy.png"
+      },
     {
       id: "pneuservis",
       title: "PNEUSERVIS",
@@ -139,7 +140,7 @@ export default function Home() {
       desc: "Opravy motoru, převodovky a dalších komponentů.",
       icon: <Settings className="w-6 h-6 text-blue-600" />,
       moreInfo: "Opravy podvozků, výměny tlumičů, čepů, ramen, výfukových systémů, rozvodů, spojek, vodních čerpadel a rozsáhlé opravy motorových částí.",
-      image: "https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?q=80&w=600&auto=format&fit=crop"
+      image: "/mechanika.png"
     },
     {
       id: "STK",
@@ -147,8 +148,8 @@ export default function Home() {
       desc: "Zařízení STK a EMISÍ.",
       icon: <Disc3 className="w-6 h-6 text-blue-600" />,
       moreInfo: "Zprostředkování a příprava vozidla na STK a měření emisí, kontrola technického stavu před samotnou prohlídkou.",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS10zueqyhzhCmiL5KTPl9gPijYIvzENvRZeq1ArJzq75gjbyCKhVztZM0AHSMGwZunczW50w6F8LWS_Ow22ZsOj9ySuQ0Mw3T_SMBA9NE&s=10"
-    },
+      image: "/stk.png"
+      },
   ];
 
   const pricing = [
