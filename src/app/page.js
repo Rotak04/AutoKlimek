@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   Wrench,
   ShieldCheck,
@@ -40,51 +41,58 @@ export default function Home() {
   const [result, setResult] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // === ÚPRAVA NA RESEND: Odesílání přes vlastní API route `/api/send` ===
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setIsSubmitting(true);
-    setResult("Odesílám...");
+  const searchParams = useSearchParams();
 
-    const formData = new FormData(event.target);
-
-    const emailData = {
-      email: formData.get("email"),
-      service: selectedService,
-      message: formData.get("message") || "",
-    };
-
-    try {
-      const response = await fetch("/api/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(emailData),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setResult("Poptávka byla úspěšně odeslána!");
-        setIsSubmitted(true);
-        event.target.reset();
-
-        // Po 2 sekundách zavřeme modal a resetujeme stav
-        setTimeout(() => {
-          setIsModalOpen(false);
-          setIsSubmitted(false);
-          setResult("");
-        }, 2000);
-      } else {
-        setResult("Chyba při odesílání: " + (data.error || "Neznámá chyba"));
-      }
-    } catch (error) {
-      setResult("Došlo k chybě. Zkontrolujte připojení.");
-    } finally {
-      setIsSubmitting(false);
+  // Automatické otevření modálu, pokud uživatel přišel z detailu služby
+  useEffect(() => {
+    const poptatSsluzba = searchParams.get('poptat');
+    if (poptatSsluzba && typeof handleOpenModal === 'function') {
+      handleOpenModal(poptatSsluzba);
     }
-  };
+  }, [searchParams]);
+
+ // === ÚPRAVA NA RESEND: Odesílání přes vlastní API route
+ const onSubmit = async (event) => {
+   event.preventDefault();
+   setIsSubmitting(true);
+   setResult("Odesílám...");
+
+   const formData = new FormData(event.target);
+
+   const emailData = {
+       email: formData.get("email"),
+       phone: formData.get("phone"), // Tady ho bereme přímo z formuláře
+       service: selectedService,
+       message: formData.get("message") || "",
+     };
+
+   try {
+     const response = await fetch('/api/send', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify(emailData),
+     });
+
+     const data = await response.json();
+
+     if (response.ok) {
+       setResult("Poptávka byla úspěšně odeslána!");
+       setIsSubmitted(true);
+       // Případně vyčištění formuláře
+       setEmail('');
+       setPhone('');
+       setDescription('');
+     } else {
+       setResult(data.error || "Něco se pokazilo, zkuste to znovu.");
+     }
+   } catch (error) {
+     setResult("Chyba při odesílání.");
+   } finally {
+     setIsSubmitting(false);
+   }
+ };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -328,26 +336,33 @@ export default function Home() {
             <div className="w-16 h-1 bg-blue-600 mx-auto mt-2"></div>
           </div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
             {services.map((service) => {
               return (
                 <div key={service.slug} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition group border border-gray-200 flex flex-col h-full">
-                  <div className="h-48 overflow-hidden relative">
+
+                  {/* Obrázek je nyní klikací odkaz na podstránku */}
+                  <Link href={`/sluzby/${service.slug}`} className="block relative h-48 overflow-hidden bg-gray-950 cursor-pointer">
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
                     <div className="absolute bottom-3 left-3 bg-white p-2 rounded-full shadow">
                       {service.icon}
                     </div>
-                  </div>
+                  </Link>
+
                   <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="font-bold text-lg text-slate-900 mb-2 uppercase">{service.title}</h3>
+                    <Link href={`/sluzby/${service.slug}`} className="block">
+                      <h3 className="font-bold text-lg text-slate-900 mb-2 uppercase hover:text-blue-600 transition">
+                        {service.title}
+                      </h3>
+                    </Link>
                     <p className="text-gray-600 text-sm mb-6 flex-grow">{service.desc}</p>
 
                     <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
-                      {/* Tlačítko VÍCE INFO nyní odkazuje na dynamickou podstránku */}
+                      {/* Tlačítko VÍCE INFO odkazuje na dynamickou podstránku */}
                       <Link
                         href={`/sluzby/${service.slug}`}
                         className="inline-flex items-center text-xs font-semibold text-gray-500 hover:text-slate-800 uppercase tracking-wider space-x-1 transition"
@@ -517,6 +532,19 @@ export default function Home() {
                       name="email"
                       required
                       placeholder="jan.novak@email.cz"
+                      className="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-sm"
+                    />
+                  </div>
+
+                  {/* TADY JE PŘIDANÉ POLÍČKO PRO TELEFON */}
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                      Telefonní číslo
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      placeholder="Např. +420 123 456 789"
                       className="w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none text-sm"
                     />
                   </div>

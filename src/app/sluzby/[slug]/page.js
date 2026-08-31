@@ -139,7 +139,7 @@ export default function ServiceDetail() {
           <h3 className="font-bold uppercase text-slate-900 mb-2">Máte zájem o tuto službu?</h3>
           <p className="text-xs text-gray-600 mb-6">Rádi vám sdělíme předběžnou cenu a domluvíme termín návštěvy.</p>
           <Link
-            href="/#kontakt"
+            href={`/?poptat=${encodeURIComponent(service.title)}`}
             className="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase px-8 py-3.5 rounded-md text-sm tracking-wider transition shadow-md"
           >
             <span>Poptat servis</span>
