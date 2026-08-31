@@ -31,7 +31,7 @@ import {
   Menu
 } from 'lucide-react';
 
-function Home() {
+function HomeContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState('DIAGNOSTIKA');
   const [email, setEmail] = useState('');
