@@ -607,11 +607,3 @@ export default function Home() {
     </div>
   );
 }
-// Tuhle novou komponentu dáš jako poslední věc do souboru
-export default function Home() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Načítám...</div>}>
-      <HomeContent />
-    </Suspense>
-  );
-}
