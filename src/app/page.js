@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Suspense } from 'react';
-import React, { useState, useEffect } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   Wrench,
@@ -606,5 +605,13 @@ export default function Home() {
         <p>© {new Date().getFullYear()} AUTO KLÍMEK. Všechna práva vyhrazena.</p>
       </footer>
     </div>
+  );
+}
+// Tuhle novou komponentu dáš jako poslední věc do souboru
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Načítám...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
