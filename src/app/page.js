@@ -254,7 +254,7 @@ export default function Home() {
         {/* Tady nahraď starou URL cestou k tvému lokálnímu obrázku */}
         <div
           className="absolute inset-0 z-0 opacity-40 bg-cover bg-center"
-          style={{ backgroundImage: "url('/autoplocha.png')" }}
+          style={{ backgroundImage: "url('/autoplocha1.png')" }}
         ></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#0b1321] via-[#0b1321]/80 to-transparent z-10"></div>
 
